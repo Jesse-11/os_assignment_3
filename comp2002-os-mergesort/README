@@ -1,0 +1,66 @@
+README.template
+
+## Project Number/Title 
+
+* Authors: Jesse Hoppo & Arthur perets
+* Group name: Assignment 3 Groups 7
+
+## Overview
+
+This program implements the mergesort algorithm, but attemps to increase effecieny through
+the use of concurrent policies and parrelism. It uses child threads recursively to crete and sort smaller 
+and smaller subarrays. 
+
+
+
+## Manifest
+
+Makefile - Compiles src files
+mergesort.c - main file for mergesort algorithsm
+mergesort.h - header file for mergesort implemnentations
+test-mergesort.c - src file for testing mergesort functionality
+
+
+## Building the project
+
+1. Run the makefule with make.
+2. Run the test script with ./test-mergesort args.
+
+
+## Features and usage
+
+- Uses parrelism and concurrent algorithms to implemnt mergesort at improvdes speeds. 
+- The amount of theads (cutoff/depth) can be adjusted through a CLI arg.
+- The size of the array to be sorted is also pased through a CLI arg.
+- A seed is used to allow determinsitic testing and funcitonality. 
+
+
+## Testing
+
+To test the code we throughoiugjly ran the test scripts with a wide range of passed arguments. 
+This inlcudes boundary/edge cases such as small arrays, large arrays. We ran seeded arrays multiple times
+to check for similar results or differences to understadn why and how this was occuring. We also checked our results
+agasint the benchmarked expected results to see if our algorthm runs as roughly expected. 
+
+## Things we would add if we had more time
+
+A dedicated thread pool or similar where we can limit the cutoff value to not exceed a rough esiatmte of thread bottlenecking. i.e if the cuttoff is 3
+which attempts to create a total of 15 threads, but lets say our computer is shite and only has 1 core and cant handle 15 threads without bottlnecking, 
+excessive context swithcing etc. why would be not just reduce the cutoff value to a rough esitamte of the computers processing power. 
+
+## Known Bugs
+
+I dont beleive there are any bugs which casue issues in the current code, if there are we havent come across them. 
+
+## Reflection and Self Assessment
+
+The main learning which we gained from this assesment was when to use a lock vs CV and why. 
+For example, in this algorithm as each thread has direct control over its subarray there is no direct case where one thread wants to access the values or memory
+of another thread (the tpyucal case a lock/mutex would be used). Rather a CV where we conditionaly wait for the child processes to be completed before merging. 
+
+
+
+## Sources Used
+
+We slighly used AI as a improvment tool for small secitons. Particularry we wrote all code ourselves and had a working copy and used ai to explore ways we could improve
+the algorithm. These improvemnts were then taken in by us, and designed and coded by us. Other then that we only used the textbook.
